@@ -6,46 +6,41 @@ function init() {
     var dropdownMenu = d3.select("#selDataset");
     console.log(samples);
 
-    samples.forEach((sample) =>
+    samples.forEach((sample) => {
       dropdownMenu
-      .append("idSelect")
+      .append("option")
       .attr("key", sample)
-      .text(sample));
+      .text(sample)
+    });
+  // let idSelect = "940";
+  // getData(option);
   });
-
-let idSelect = "940";
-
-getData(idSelect);
-
 };
 
 // let idSelect = "940";
 
-// getData(idSelect);
+getData();
 
 d3.selectAll("#selDataset").on("change", getData);
 
-function getData(idSelect) {
+function getData(option) {
   d3.json("data/samples.json").then((metaData) => {
     console.log(metaData);
-    let idSelect = "940";
-    var arr = metaData.metadata.filter(sampleObj => idSelect);
+    let option = "940";
+    
+    var arr = metaData.metadata.filter(sampleObj =>option);
     console.log(arr);
     var result = arr[0];
+    console.log(result);
     var panelData = d3.select("#sample-metadata");
 
-    Object.entries(result).forEach(([key,value]) => {
-      panelData.append("div").text('${key}: ${value}');
-    });
+    panelData.html("");
 
-    // let gender = metaData.metadata.filter((val) => val.id == idSelect);
-    // var genderid = gender[3];
-    // console.log(genderid);
-    // var age 
-    // var location
-    // var bbtype
-    // var wfreq
-    // console.log();
+    Object.entries(result).forEach(([key,value]) => {
+      panelData
+      .append("p")
+      .text(`${key}: ${value}`);
+    });
 
   });
 };
