@@ -13,20 +13,17 @@ function init() {
       .text(sample)
     });
 
-    var SampleData = samples[1];
-    getData(SampleData);
-    buildCharts(SampleData);
+    var sampleData = samples[0];
+    console.log(sampleData);
+    buildCharts(sampleData);
+    getDatas(sampleData);
   });
 };
 
-
-getData();
-
-d3.selectAll("#selDataset").on("change", getData);
-
-// function objectChanged() {
-//   let option = d3.select("#selDataset").node().value;
-// }
+function optionChanged(newData) {
+  getData(newData);
+  buildCharts(newData);
+}
 
 function getData(option) {
   
@@ -44,9 +41,7 @@ function getData(option) {
     // clear panel for new dataset
     panelData.html("");
 
-    // function objectChanged() {
-    //   let option = d3.select("#selDataset").node().value;
-    // }
+ 
     
 // Enter demographics data into table
     Object.entries(result).forEach(([key,value]) => {
@@ -54,12 +49,12 @@ function getData(option) {
       .append("p")
       .text(`${key}: ${value}`);
     });
-    // buildCharts(option);
+    buildCharts(option);
   });
 };
 
 
-function buildCharts(option) {
+function buildCharts() {
   d3.json("data/samples.json").then((data) => {
     sampleData = data.samples;
     // console.log(sampleData);
@@ -72,9 +67,7 @@ function buildCharts(option) {
 
     var sample_values = result.sample_values;
     console.log(sample_values);
-    // var sample_values = sample_data.sort(function sortFunction (a,b) {
-    //   return b-a;});
-    console.log(sample_values);
+
     var otu_ids = result.otu_ids;
     var otu_labels = result.otu_labels;
     var y = otu_ids.slice(0,10).map(option_id => `OTU ${option_id}`).reverse();
@@ -90,10 +83,10 @@ function buildCharts(option) {
       title: "Top 10 Bacteria Culture Found",
     };
     Plotly.newPlot("bar", data, layout);
+
+
   });
   
 };
-
-
 
 init();
