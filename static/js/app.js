@@ -71,12 +71,16 @@ function buildCharts(option) {
     console.log(result);
 
     var sample_values = result.sample_values;
+    console.log(sample_values);
+    // var sample_values = sample_data.sort(function sortFunction (a,b) {
+    //   return b-a;});
+    console.log(sample_values);
     var otu_ids = result.otu_ids;
-    var otu_labels = result.otu_labels
-
+    var otu_labels = result.otu_labels;
+    var y = otu_ids.slice(0,10).map(option_id => `OTU ${option_id}`).reverse();
     var barChart = {
-      x: sample_values.slice(0,10),
-      y: otu_ids,
+      x: sample_values.slice(0,10).reverse(),
+      y: y,
       type: "bar",
       orientation: "h",
       text: otu_labels
