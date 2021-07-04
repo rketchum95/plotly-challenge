@@ -4,7 +4,6 @@ function init() {
     samples = data.names;
     samples.map(samples => +samples)
     var dropdownMenu = d3.select("#selDataset");
-    // console.log(samples);
 
     samples.forEach((sample) => {
       dropdownMenu
@@ -14,7 +13,6 @@ function init() {
     });
 
     var sampleData = samples[0];
-    // console.log(sampleData);
     buildCharts(sampleData);
     getData(sampleData);
   });
@@ -28,16 +26,15 @@ function optionChanged(newData) {
 function getData(option) {
   
   d3.json("data/samples.json").then((metaData) => {
-
     sample = metaData.metadata;
     // id selection
     let option = d3.select("#selDataset").node().value;
-  // filter for demograph data
+
+    // filter for demograph data
     var arr = sample.filter(sampleObj => sampleObj.id == option);
-    // console.log(arr);
     var result = arr[0];
-    // console.log(result);
     var panelData = d3.select("#sample-metadata");
+
     // clear panel for new dataset
     panelData.html("");
  
@@ -55,17 +52,14 @@ function getData(option) {
 function buildCharts() {
   d3.json("data/samples.json").then((data) => {
     sampleData = data.samples;
-    // console.log(sampleData);
+ 
     // User option selection
     let option = d3.select("#selDataset").node().value;
   
     // filter data
     var chartArrays = sampleData.filter(sampleObj =>sampleObj.id == option);
     var result = chartArrays[0];
-    // console.log(result);
-
     var sample_values = result.sample_values;
-    // console.log(sample_values);
 
     // variables
     var otu_ids = result.otu_ids;
@@ -105,7 +99,6 @@ function buildCharts() {
     };
     Plotly.newPlot("bubble", bubbleData, bubbleLayout);
   });
-  
 };
 
 init();
