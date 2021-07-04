@@ -14,7 +14,7 @@ function init() {
     });
 
     var sampleData = samples[0];
-    console.log(sampleData);
+    // console.log(sampleData);
     buildCharts(sampleData);
     getData(sampleData);
   });
@@ -62,10 +62,10 @@ function buildCharts() {
     // filter data
     var chartArrays = sampleData.filter(sampleObj =>sampleObj.id == option);
     var result = chartArrays[0];
-    console.log(result);
+    // console.log(result);
 
     var sample_values = result.sample_values;
-    console.log(sample_values);
+    // console.log(sample_values);
 
     // variables
     var otu_ids = result.otu_ids;
@@ -95,8 +95,8 @@ function buildCharts() {
       marker: {
         size: sample_values,
         color: otu_ids,
-        colorscale: "magma"
-      },
+        colorscale: "earth"
+      }
     };
     var bubbleData = [bubbleChart];
     var bubbleLayout = {
